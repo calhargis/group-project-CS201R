@@ -21,13 +21,12 @@ print(len(merged_df))
 
 
 # Extracting relevant features
-features_df = merged_df[['User-ID', 'Age', 'Location', 'ISBN', 'Year-Of-Publication', 'Book-Author', 'Publisher', 'Book-Rating']]
+features_df = merged_df[['User-ID', 'ISBN', 'Year-Of-Publication', 'Book-Author', 'Book-Rating']]
 
 # Group by User-ID and ISBN to aggregate features
 grouped_df = features_df.groupby(['User-ID', 'ISBN']).agg({
     'Year-Of-Publication': 'first',  # Year of publication of the book
     'Book-Author': 'first',  # Author of the book
-    'Publisher': 'first',  # Publisher of the book
     'Book-Rating': 'mean'  # Average rating given by the user for the book
 }).reset_index()
 
