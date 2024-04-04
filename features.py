@@ -1,8 +1,5 @@
 import pandas as pd
-import pandas as pd
 import sys
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import NearestNeighbors
 
 # Load datasets
 books_df = pd.read_csv('Books.csv')
@@ -20,8 +17,17 @@ print(len(merged_df))
 # print(merged_df.head(10))
 
 
+
 # Extracting relevant features
 features_df = merged_df[['User-ID', 'ISBN', 'Year-Of-Publication', 'Book-Author', 'Book-Rating']]
+
+before_dropping_rows = len(features_df)
+
+features_df.dropna(inplace=True)
+
+after_dropping_rows = len(features_df)
+rows_dopped = before_dropping_rows - after_dropping_rows
+
 
 # Group by User-ID and ISBN to aggregate features
 grouped_df = features_df.groupby(['User-ID', 'ISBN']).agg({
